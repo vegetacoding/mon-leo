@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POPCAT</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(180deg, #c4a68a 0%, #a88b6e 100%);
+        font-family: "Anton", sans-serif;
+      }
+
+      .container {
+        position: relative;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .title {
+        font-size: 60px;
+        color: white;
+        text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
+          2px 2px 0 #000;
+        margin: 0 0 10px 0;
+        letter-spacing: 2px;
+        position: fixed;
+        top: 10px;
+        left: 45%;
+      }
+
+      .counter {
+        font-size: 48px;
+        color: white;
+        text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
+          2px 2px 0 #000;
+        margin: 0 0 20px 0;
+      }
+
+      .pressed-key {
+        position: absolute;
+        top: 95px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 60px;
+        font-weight: bold;
+        color: white;
+        text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
+          2px 2px 0 #000;
+        z-index: 10;
+      }
+
+      .buttons-container {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 20px;
+        position: fixed;
+        z-index: 99999;
+        bottom: 20px;
+        left: 45%;
+      }
+
+      .key-button {
+        width: 60px;
+        height: 60px;
+        border-radius: 10px;
+        background: #ffffff;
+        border: 3px solid #000000;
+        font-family: "Anton", sans-serif;
+        font-size: 24px;
+        cursor: pointer;
+        transition: all 0.1s ease;
+      }
+
+      .key-button.active {
+        transform: scale(0.9);
+        background: #e0e0e0;
+      }
+
+      img {
+        max-width: 720px;
+        height: auto;
+        border-radius: 10px;
+        margin-top: 103px;
+        display: block;
+      }
+
+      @media (max-width: 600px) {
+        .title {
+          font-size: 48px;
+        }
+        .counter {
+          font-size: 36px;
+        }
+        img {
+          max-width: 300px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">MON LEO</h1>
+      <div class="pressed-key" id="pressedKey"></div>
+      <div class="image-container">
+        <img src="/images/1.png" id="mainImage" alt="POPCAT" />
+      </div>
+      <div class="buttons-container">
+        <button class="key-button" id="buttonU">U</button>
+        <button class="key-button" id="buttonI">I</button>
+        <button class="key-button" id="buttonA">A</button>
+      </div>
+    </div>
+    <script>
+      const image = document.getElementById("mainImage");
+      const pressedKeyDiv = document.getElementById("pressedKey");
+      const buttonU = document.getElementById("buttonU");
+      const buttonI = document.getElementById("buttonI");
+      const buttonA = document.getElementById("buttonA");
+      let isImage1 = true;
+      let counter = 38;
+      const counterDiv = document.querySelector(".counter");
+      document.addEventListener("keydown", (event) => {
+        const key = event.key.toLowerCase();
+        if (key === "u" || key === "i" || key === "a") {
+          pressedKeyDiv.textContent = key.toUpperCase();
+          if (key === "u") buttonU.classList.add("active");
+          if (key === "i") buttonI.classList.add("active");
+          if (key === "a") buttonA.classList.add("active");
+          if (isImage1) {
+            image.src = "/images/2.png";
+            isImage1 = false;
+            counter++;
+            counterDiv.textContent = counter;
+          }
+        }
+      });
+      document.addEventListener("keyup", (event) => {
+        const key = event.key.toLowerCase();
+        if (key === "u" || key === "i" || key === "a") {
+          image.src = "/images/1.png";
+          isImage1 = true;
+          pressedKeyDiv.textContent = "";
+          buttonU.classList.remove("active");
+          buttonI.classList.remove("active");
+          buttonA.classList.remove("active");
+        }
+      });
+    </script>
+  </body>
+</html>
